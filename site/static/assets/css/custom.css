@@ -1,0 +1,62 @@
+/* Custom styles for Team member cards and button */
+
+.member {
+  border: 2px solid #7a3f7a;
+  border-radius: 15px;
+  padding: 40px;
+  box-shadow: 0 8px 30px rgba(122, 63, 122, 0.4);
+  background: #fff;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 40px;
+}
+
+.member:hover {
+  transform: translateY(-15px);
+  box-shadow: 0 16px 40px rgba(122, 63, 122, 0.6);
+}
+
+.member .pic {
+  margin-bottom: 20px;
+}
+
+.member .pic img {
+  max-width: 180px;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.member:hover .pic img {
+  transform: scale(1.1);
+}
+
+.member-info h4 {
+  color: #7a3f7a;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.member-info span {
+  color: #b87fb8;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.btn-custom {
+  background-color: #7a3f7a;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 700;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn-custom:hover {
+  background-color: #b87fb8;
+  color: #fff;
+}

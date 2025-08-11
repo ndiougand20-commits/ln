@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Réservation - LN Company{% endblock %}
+
+{% block content %}
+
+<section id="reservation" class="reservation section" style="background-color: #f5f0f7; color: #7a3f7a; padding: 60px 0;">
+
+  <div class="container">
+
+    <div class="section-title" data-aos="fade-up">
+      <span style="color: #b87fb8;">Réservation</span>
+      <h2 style="color: #7a3f7a;">Formulaire de réservation</h2>
+      <p style="color: #7a3f7a;">Veuillez remplir le formulaire ci-dessous pour effectuer une réservation.</p>
+    </div><!-- End Section Title -->
+
+    <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="100">
+
+      <div class="col-lg-8">
+
+        <form action="" method="post" class="php-email-form">
+          {% csrf_token %}
+          {% if messages %}
+            <div class="mb-3">
+              {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}" role="alert" style="color: #7a3f7a;">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+          <div class="row gy-4">
+
+            <div class="col-md-6">
+              <label for="name-field" class="pb-2" style="color: #7a3f7a;">Votre nom</label>
+              <input type="text" name="nom" id="name-field" class="form-control" required style="border-color: #7a3f7a;">
+            </div>
+
+            <div class="col-md-6">
+              <label for="email-field" class="pb-2" style="color: #7a3f7a;">Votre email</label>
+              <input type="email" class="form-control" name="email" id="email-field" required style="border-color: #7a3f7a;">
+            </div>
+
+            <div class="col-md-12">
+              <label for="service-field" class="pb-2" style="color: #7a3f7a;">Service</label>
+              <select name="service" id="service-field" class="form-select" required style="border-color: #7a3f7a;">
+                <option value="" disabled selected>Choisissez un service</option>
+                {% for service in services %}
+                <option value="{{ service.id }}">{{ service.nom }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="col-md-12">
+              <label for="date-field" class="pb-2" style="color: #7a3f7a;">Date de réservation</label>
+              <input type="date" name="date" id="date-field" class="form-control" required style="border-color: #7a3f7a;">
+            </div>
+
+            <div class="col-md-12">
+              <label for="message-field" class="pb-2" style="color: #7a3f7a;">Message</label>
+              <textarea class="form-control" name="message" rows="6" id="message-field" style="border-color: #7a3f7a;"></textarea>
+            </div>
+
+            <div class="col-md-12 text-center">
+              <button type="submit" style="background-color: #7a3f7a; color: #ffffff; border: none; padding: 12px 30px; font-weight: 700; border-radius: 10px; transition: background-color 0.3s ease;">
+                Envoyer la réservation
+              </button>
+            </div>
+
+          </div>
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('.php-email-form');
+    if (form) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '', true);
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            form.reset();
+            alert('Votre réservation a été envoyée avec succès. Vous serez contacté(e) sous peu.');
+          } else {
+            alert('Une erreur est survenue lors de l\'envoi de la réservation.');
+          }
+        };
+
+        xhr.onerror = function () {
+          alert('Une erreur est survenue lors de l\'envoi de la réservation.');
+        };
+
+        xhr.send(formData);
+      });
+    }
+  });
+</script>
+
+{% endblock %}

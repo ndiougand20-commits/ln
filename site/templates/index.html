@@ -1,0 +1,310 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Accueil - LN-Company{% endblock %}
+
+{% block content %}
+<main>
+  <!-- Hero Section -->
+  <section id="hero" class="hero section" style="background-color: #f5f0f7; color: #4a2c4a;">
+
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="fade-up">
+          <h1 style="color: #7a3f7a;">LN Company</h1>
+          <p style="color: #4a2c4a;">Société spécialisée dans la production audiovisuelle, l'événementiel, le management de talents et la communication 360°.</p>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="100">
+          <img src="{% static 'assets/img/logo.png' %}" class="img-fluid animated" alt="LN Company Logo">
+        </div>
+      </div>
+    </div>
+
+  </section><!-- /Hero Section -->
+
+  
+
+  <!-- About Section -->
+  <section id="about" class="about section" style="background-color: #ffffff; color: #4a2c4a;">
+<hr style="border: 3px solid #7a3f7a; margin: 40px auto; width: 90%; display: block;">
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+      <span style="color: #b87fb8;">{{ about.titre }}</span>
+      <h2 style="color: #7a3f7a;">À propos</h2>
+    </div><!-- End Section Title -->
+
+    <div class="container">
+
+      <div class="row gy-4">
+        <div class="col-lg-6 position-relative align-self-start" data-aos="fade-up" data-aos-delay="100">
+          <img src="{{ about.image.url }}" class="img-fluid" alt="{{ about.titre }}">
+        </div>
+        <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="200">
+          <h3 style="color: #7a3f7a;">{{ about.titre }}</h3>
+          <p class="fst-italic" style="color: #4a2c4a;">{{ about.texte }}</p>
+        </div>
+      </div>
+
+    </div>
+
+  </section><!-- /About Section -->
+
+  <!-- Services Section -->
+  <section id="services" class="services section light-background">
+
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+      <span>Services</span>
+      <h2>Services</h2>
+      <p>Nos services proposés</p>
+    </div><!-- End Section Title -->
+
+    <div class="container">
+
+      <div class="row gy-4">
+        {% for service in services %}
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:'1' }}00">
+          <div class="service-item position-relative" style="border: 2px solid #7a3f7a; border-radius: 15px; padding: 40px 20px; height: 100%; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(122, 63, 122, 0.2); transition: all 0.3s ease-in-out;">
+            <div class="icon" style="margin: 0 auto 15px auto; width: 80px; height: 80px; background: #7a3f7a; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.3s ease-in-out;">
+              <img src="{{ service.image.url }}" alt="{{ service.nom }}" class="img-fluid" style="max-width: 100%; max-height: 100%; border-radius: 50%;">
+            </div>
+            <a href="#" class="stretched-link" style="color: #7a3f7a; font-weight: 700; font-size: 24px; margin: 10px 0 15px 0;">
+              <h3>{{ service.nom }}</h3>
+            </a>
+            <p style="line-height: 1.5; font-size: 16px; margin-bottom: 0; color: #4a2c4a; flex-grow: 1;">{{ service.description }}</p>
+          </div>
+        </div><!-- End Service Item -->
+        {% endfor %}
+      </div>
+
+    </div>
+
+  </section><!-- /Services Section -->
+
+  <!-- Réalisations Section -->
+  <section id="realisations" class="realisations section" style="background-color: #ffffff; color: #4a2c4a;">
+
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+      <span>Réalisations</span>
+      <h2>Réalisations</h2>
+      <p>Découvrez nos réalisations</p>
+    </div><!-- End Section Title -->
+
+    <div class="container">
+
+      <div class="row gy-4">
+
+        {% for realisation in realisations %}
+        <div class="col-lg-4 col-md-6 realisation-item" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:'1' }}00" style="cursor: pointer;">
+          <a href="{% url 'realisation_detail' realisation.pk %}" style="text-decoration: none; color: inherit;">
+            <img src="{{ realisation.image_couverture.url }}" alt="{{ realisation.titre }}" class="img-fluid" style="border-radius: 15px; box-shadow: 0 4px 15px rgba(122, 63, 122, 0.2); margin-bottom: 10px;">
+            <div class="realisation-info" style="text-align: center;">
+              <h4 style="color: #7a3f7a; font-weight: 700;">{{ realisation.titre }}</h4>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+
+      </div>
+
+    </div>
+
+  </section><!-- /Réalisations Section -->
+
+  <!-- Lifestyle Section -->
+  <section id="lifestyle" class="lifestyle section light-background">
+
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+      <span>Lifestyle</span>
+      <h2>Lifestyle</h2>
+      <p>Découvrez nos styles de vie</p>
+    </div><!-- End Section Title -->
+
+    <div class="container">
+
+      <div class="row gy-4">
+
+        {% for lifestyle in lifestyles %}
+        <div class="col-lg-4 col-md-6 lifestyle-item" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:'1' }}00" style="cursor: pointer;">
+          <a href="{% url 'lifestyle_detail' lifestyle.pk %}" style="text-decoration: none; color: inherit;">
+            <img src="{{ lifestyle.image_couverture.url }}" alt="{{ lifestyle.titre }}" class="img-fluid" style="border-radius: 15px; box-shadow: 0 4px 15px rgba(122, 63, 122, 0.2); margin-bottom: 10px;">
+            <div class="lifestyle-info" style="text-align: center;">
+              <h4 style="color: #7a3f7a; font-weight: 700;">{{ lifestyle.titre }}</h4>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+
+      </div>
+
+    </div>
+
+  </section><!-- /Lifestyle Section -->
+
+    <!-- Team Section -->
+    <section id="team" class="team section" style="background-color: #f5f0f7; color: #4a2c4a;">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <span style="color: #b87fb8;">Notre équipe</span>
+        <h2 style="color: #7a3f7a;">Équipe LN Company</h2>
+        <p style="color: #4a2c4a;">Découvrez les membres de notre équipe</p>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row gy-5">
+
+          {% for membre in membres %}
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:'1' }}00">
+          <div class="member" style="border: 2px solid #7a3f7a; border-radius: 15px; padding: 40px; box-shadow: 0 8px 30px rgba(122, 63, 122, 0.4); background: #fff; text-align: center; margin-bottom: 40px;">
+              <div class="pic" style="margin-bottom: 15px;">
+                <img src="{{ membre.photo.url }}" class="img-fluid rounded-circle" alt="{{ membre.nom }}" style="max-width: 200px; height: auto; margin: 0 auto;">
+              </div>
+              <div class="member-info">
+                <h4 style="color: #7a3f7a;">{{ membre.nom }}</h4>
+                <span style="color: #b87fb8; font-weight: 600;">{{ membre.poste }}</span>
+                <button class="btn" type="button" onclick="var bio = document.getElementById('bio-{{ forloop.counter }}'); if(bio.style.display === 'none' || bio.style.display === '') { bio.style.display = 'block'; } else { bio.style.display = 'none'; }" style="margin-top: 10px; background-color: #7a3f7a; color: #ffffff; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700;">
+                  Lire biographie
+                </button>
+                <div id="bio-{{ forloop.counter }}" style="display:none; margin-top: 10px; padding: 15px; background-color: #f0e6f7; border-radius: 15px; color: #4a2c4a; text-align: left; box-shadow: 0 6px 20px rgba(122, 63, 122, 0.4); max-height: 300px; overflow-y: auto; font-size: 15px; line-height: 1.6;">
+                  <p>{{ membre.biographie }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+
+      </div>
+
+    </section><!-- /Team Section -->
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact section" style="background-color: #ffffff; color: #4a2c4a;">
+
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+      <span style="color: #7a3f7a;">Contact</span>
+      <h2 style="color: #7a3f7a;">Contactez-nous</h2>
+      <p style="color: #7a3f7a;">Vous pouvez nous contacter en remplissant le formulaire ci-dessous.</p>
+    </div><!-- End Section Title -->
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+      <div class="row gy-4">
+
+        <div class="col-lg-5">
+
+          <div class="info-wrap">
+          <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
+            <i class="bi bi-geo-alt flex-shrink-0" style="color: #7a3f7a;"></i>
+            <div>
+              <h3 style="color: #7a3f7a;">Adresse</h3>
+              <p style="color: #4a2c4a;">Almadies</p>
+            </div>
+          </div><!-- End Info Item -->
+
+          <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+            <i class="bi bi-telephone flex-shrink-0" style="color: #7a3f7a;"></i>
+            <div>
+              <h3 style="color: #7a3f7a;">Téléphone</h3>
+              <p style="color: #4a2c4a;">+221 783735494</p>
+            </div>
+          </div><!-- End Info Item -->
+
+          <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+            <i class="bi bi-envelope flex-shrink-0" style="color: #7a3f7a;"></i>
+            <div>
+              <h3 style="color: #7a3f7a;">Email</h3>
+              <p style="color: #4a2c4a;">lncompany@ln-company.com</p>
+            </div>
+          </div><!-- End Info Item -->
+
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" style="border:0; width: 100%; height: 270px; display:none;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+
+        <div class="col-lg-7">
+          <form action="" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+            {% csrf_token %}
+            {% if messages %}
+              <div class="mb-3">
+                {% for message in messages %}
+                  <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}" role="alert" style="color: #7a3f7a;">
+                    {{ message }}
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+            <div class="row gy-4">
+
+              <div class="col-md-6">
+                <label for="name-field" class="pb-2" style="color: #7a3f7a;">Votre nom</label>
+                <input type="text" name="nom" id="name-field" class="form-control" required style="border-color: #7a3f7a;">
+              </div>
+
+              <div class="col-md-6">
+                <label for="email-field" class="pb-2" style="color: #7a3f7a;">Votre email</label>
+                <input type="email" class="form-control" name="email" id="email-field" required style="border-color: #7a3f7a;">
+              </div>
+
+              <div class="col-md-12">
+                <label for="subject-field" class="pb-2" style="color: #7a3f7a;">Sujet</label>
+                <input type="text" class="form-control" name="sujet" id="subject-field" required style="border-color: #7a3f7a;">
+              </div>
+
+              <div class="col-md-12">
+                <label for="message-field" class="pb-2" style="color: #7a3f7a;">Message</label>
+                <textarea class="form-control" name="message" rows="10" id="message-field" required style="border-color: #7a3f7a;"></textarea>
+              </div>
+
+              <div class="col-md-12 text-center">
+                <button type="submit" style="background-color: #7a3f7a; color: #ffffff; border: none;">Envoyer le message</button>
+              </div>
+
+            </div>
+          </form>
+        </div><!-- End Contact Form -->
+
+      </div>
+
+    </div>
+
+  </section><!-- /Contact Section -->
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const form = document.querySelector('.php-email-form');
+      if (form) {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+
+          const formData = new FormData(form);
+          const xhr = new XMLHttpRequest();
+          xhr.open('POST', '', true);
+          xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+          xhr.onload = function () {
+            if (xhr.status === 200) {
+              form.reset();
+            } else {
+              alert('Une erreur est survenue lors de l\'envoi du message.');
+            }
+          };
+
+          xhr.onerror = function () {
+            alert('Une erreur est survenue lors de l\'envoi du message.');
+          };
+
+          xhr.send(formData);
+        });
+      }
+    });
+  </script>
+
+</main>
+{% endblock %}

@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Prise de rendez-vous - LN Company{% endblock %}
+
+{% block content %}
+
+<section id="rendezvous" class="rendezvous section" style="background-color: #f5f0f7; color: #7a3f7a; padding: 60px 0;">
+
+  <div class="container">
+
+    <div class="section-title" data-aos="fade-up">
+      <span style="color: #b87fb8;">Prise de rendez-vous</span>
+      <h2 style="color: #7a3f7a;">Formulaire de prise de rendez-vous</h2>
+      <p style="color: #7a3f7a;">Veuillez remplir le formulaire ci-dessous pour prendre un rendez-vous.</p>
+    </div><!-- End Section Title -->
+
+    <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="100">
+
+      <div class="col-lg-8">
+
+        <form action="" method="post" class="php-email-form">
+          {% csrf_token %}
+          {% if messages %}
+            <div class="mb-3">
+              {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}" role="alert" style="color: #7a3f7a;">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+          <div class="row gy-4">
+
+            <div class="col-md-6">
+              <label for="name-field" class="pb-2" style="color: #7a3f7a;">Votre nom</label>
+              <input type="text" name="nom" id="name-field" class="form-control" required style="border-color: #7a3f7a;">
+            </div>
+
+            <div class="col-md-6">
+              <label for="email-field" class="pb-2" style="color: #7a3f7a;">Votre email</label>
+              <input type="email" class="form-control" name="email" id="email-field" required style="border-color: #7a3f7a;">
+            </div>
+
+            <div class="col-md-6">
+              <label for="telephone-field" class="pb-2" style="color: #7a3f7a;">Téléphone</label>
+              <input type="tel" class="form-control" name="telephone" id="telephone-field" required style="border-color: #7a3f7a;">
+            </div>
+
+            <div class="col-md-6">
+              <label for="objet-field" class="pb-2" style="color: #7a3f7a;">Objet</label>
+              <input type="text" class="form-control" name="objet" id="objet-field" required style="border-color: #7a3f7a;">
+            </div>
+
+            <div class="col-md-6">
+              <label for="date-field" class="pb-2" style="color: #7a3f7a;">Date du rendez-vous</label>
+              <input type="date" name="date" id="date-field" class="form-control" required style="border-color: #7a3f7a;">
+            </div>
+
+            <div class="col-md-6">
+              <label for="heure-field" class="pb-2" style="color: #7a3f7a;">Heure du rendez-vous</label>
+              <input type="time" name="heure" id="heure-field" class="form-control" required style="border-color: #7a3f7a;">
+            </div>
+
+            <div class="col-md-12">
+              <label for="message-field" class="pb-2" style="color: #7a3f7a;">Message</label>
+              <textarea class="form-control" name="message" rows="6" id="message-field" style="border-color: #7a3f7a;"></textarea>
+            </div>
+
+            <div class="col-md-12 text-center">
+              <button type="submit" style="background-color: #7a3f7a; color: #ffffff; border: none; padding: 12px 30px; font-weight: 700; border-radius: 10px; transition: background-color 0.3s ease;">
+                Envoyer la demande
+              </button>
+            </div>
+
+          </div>
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('.php-email-form');
+    if (form) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '', true);
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            form.reset();
+            alert('Votre demande de rendez-vous a été envoyée avec succès. Vous serez contacté(e) sous peu.');
+          } else {
+            alert('Une erreur est survenue lors de l\'envoi de la demande.');
+          }
+        };
+
+        xhr.onerror = function () {
+          alert('Une erreur est survenue lors de l\'envoi de la demande.');
+        };
+
+        xhr.send(formData);
+      });
+    }
+  });
+</script>
+
+{% endblock %}
