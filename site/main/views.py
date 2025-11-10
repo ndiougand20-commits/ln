@@ -8,6 +8,7 @@ from django.contrib import messages
 from .models import ContactMessage
 
 from .models import Lifestyle
+from django.http import JsonResponse
 
 def index(request):
     about = About.objects.first()
@@ -24,6 +25,8 @@ def index(request):
         message_text = request.POST.get('message')
 
         if not (nom and email and sujet and message_text):
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                return JsonResponse({'success': False, 'error': 'Veuillez remplir tous les champs du formulaire de contact.'}, status=400)
             messages.error(request, "Veuillez remplir tous les champs du formulaire de contact.")
         else:
             contact_message = ContactMessage(
@@ -33,7 +36,10 @@ def index(request):
                 message=message_text
             )
             contact_message.save()
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                return JsonResponse({'success': True, 'message': 'Votre message a été envoyé avec succès.'})
             messages.success(request, "Votre message a été envoyé avec succès.")
+            return redirect('index') # Redirige pour éviter la resoumission du formulaire au rechargement
 
     return render(request, 'index.html', {'about': about, 'services': services, 'realisations': realisations, 'membres': membres, 'lifestyles': lifestyles})
 
