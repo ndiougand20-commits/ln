@@ -35,8 +35,8 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1,localhost').split(',')
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://*.onrender.com',
-    'https://*.ln-company.com'
+    'https://onrender.com',
+    'https://ln-company.com'
 ]
 
 # Application definition
