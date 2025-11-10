@@ -38,6 +38,7 @@ ALLOWED_HOSTS = [
     'ln-company.onrender.com',
     '.onrender.com',
     'ln-499n.onrender.com',
+    'ln-company.com'
 ]
 
 
