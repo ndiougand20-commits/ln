@@ -32,11 +32,10 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    'ln-company.onrender.com',
-    '.onrender.com'
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1,localhost').split(',')
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.onrender.com'
 ]
 
 
@@ -136,6 +135,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Configuration des fichiers médias
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Configuration de WhiteNoise pour le stockage des fichiers statiques
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
